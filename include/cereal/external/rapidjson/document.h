@@ -452,7 +452,7 @@ struct TypeHelper<ValueType, unsigned> {
     static ValueType& Set(ValueType& v, unsigned data, typename ValueType::AllocatorType&) { return v.SetUint(data); }
 };
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 CEREAL_RAPIDJSON_STATIC_ASSERT(sizeof(long) == sizeof(int));
 template<typename ValueType>
 struct TypeHelper<ValueType, long> {

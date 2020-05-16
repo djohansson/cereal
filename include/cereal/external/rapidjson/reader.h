@@ -362,7 +362,7 @@ inline const char *SkipWhitespace_SIMD(const char* p) {
         x = _mm_or_si128(x, _mm_cmpeq_epi8(s, w3));
         unsigned short r = static_cast<unsigned short>(~_mm_movemask_epi8(x));
         if (r != 0) {   // some of characters may be non-whitespace
-#ifdef _MSC_VER         // Find the index of first non-whitespace
+#if defined(_MSC_VER) && !defined(__clang__)         // Find the index of first non-whitespace
             unsigned long offset;
             _BitScanForward(&offset, r);
             return p + offset;
@@ -398,7 +398,7 @@ inline const char *SkipWhitespace_SIMD(const char* p, const char* end) {
         x = _mm_or_si128(x, _mm_cmpeq_epi8(s, w3));
         unsigned short r = static_cast<unsigned short>(~_mm_movemask_epi8(x));
         if (r != 0) {   // some of characters may be non-whitespace
-#ifdef _MSC_VER         // Find the index of first non-whitespace
+#if defined(_MSC_VER) && !defined(__clang__)         // Find the index of first non-whitespace
             unsigned long offset;
             _BitScanForward(&offset, r);
             return p + offset;
@@ -1090,7 +1090,7 @@ private:
             unsigned short r = static_cast<unsigned short>(_mm_movemask_epi8(x));
             if (CEREAL_RAPIDJSON_UNLIKELY(r != 0)) {   // some of characters is escaped
                 SizeType length;
-    #ifdef _MSC_VER         // Find the index of first escaped
+    #if defined(_MSC_VER) && !defined(__clang__)         // Find the index of first escaped
                 unsigned long offset;
                 _BitScanForward(&offset, r);
                 length = offset;
@@ -1153,7 +1153,7 @@ private:
             unsigned short r = static_cast<unsigned short>(_mm_movemask_epi8(x));
             if (CEREAL_RAPIDJSON_UNLIKELY(r != 0)) {   // some of characters is escaped
                 size_t length;
-#ifdef _MSC_VER         // Find the index of first escaped
+#if defined(_MSC_VER) && !defined(__clang__)         // Find the index of first escaped
                 unsigned long offset;
                 _BitScanForward(&offset, r);
                 length = offset;
@@ -1201,7 +1201,7 @@ private:
             unsigned short r = static_cast<unsigned short>(_mm_movemask_epi8(x));
             if (CEREAL_RAPIDJSON_UNLIKELY(r != 0)) {   // some of characters is escaped
                 size_t length;
-#ifdef _MSC_VER         // Find the index of first escaped
+#if defined(_MSC_VER) && !defined(__clang__)         // Find the index of first escaped
                 unsigned long offset;
                 _BitScanForward(&offset, r);
                 length = offset;

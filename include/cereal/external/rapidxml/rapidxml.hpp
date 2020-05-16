@@ -14,7 +14,7 @@
 
 // On MSVC, disable "conditional expression is constant" warning (level 4).
 // This warning is almost impossible to avoid with certain types of templated code
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
     #pragma warning(push)
     #pragma warning(disable:4127)   // Conditional expression is constant
     #pragma warning(disable:4100)   // unreferenced formal parameter
@@ -2617,7 +2617,7 @@ namespace rapidxml
 #undef CEREAL_RAPIDXML_PARSE_ERROR
 
 // On MSVC, restore warnings state
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
     #pragma warning(pop)
 #endif
 

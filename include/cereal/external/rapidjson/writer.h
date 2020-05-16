@@ -610,7 +610,7 @@ inline bool Writer<StringBuffer>::ScanWriteUnescapedString(StringStream& is, siz
         unsigned short r = static_cast<unsigned short>(_mm_movemask_epi8(x));
         if (CEREAL_RAPIDJSON_UNLIKELY(r != 0)) {   // some of characters is escaped
             SizeType len;
-#ifdef _MSC_VER         // Find the index of first escaped
+#if defined(_MSC_VER) && !defined(__clang__)         // Find the index of first escaped
             unsigned long offset;
             _BitScanForward(&offset, r);
             len = offset;
